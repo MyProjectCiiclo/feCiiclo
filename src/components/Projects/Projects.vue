@@ -132,14 +132,14 @@ const closeForm = () => {
   showForm.value = false;
 };
 
-const handleEdit = (project) => {
+const handleEdit = (project: any) => {
   selectedProject.value = project;
   showForm.value = true;
 };
 
-const handleDelete = (project) => {
+const handleDelete = (project: any) => {
   if (confirm("Are you sure you want to delete this project?")) {
-    projects.value = projects.value.filter((p) => p.id !== project.id);
+    projects.value = projects.value.filter((p: any) => p.id !== project.id);
     closeForm();
   }
 };
