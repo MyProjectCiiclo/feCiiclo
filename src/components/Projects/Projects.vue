@@ -1,8 +1,10 @@
 <template>
-  <div class="bg-gray-50 min-h-screen px-[180px] py-6">
+  <div class="bg-gray-50 min-h-screen px-[180px] py-6 relative">
     <header class="flex justify-between items-center mb-6">
       <h2 class="text-2xl font-bold">Project</h2>
+
       <button
+        @click="openForm"
         class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
       >
         New Project
@@ -15,6 +17,7 @@
         placeholder="Search..."
         class="border px-4 py-2 rounded w-1/3"
       />
+
       <div class="flex gap-2">
         <button class="border px-4 py-2 rounded">Sort</button>
         <button class="border px-4 py-2 rounded">Filter</button>
@@ -28,12 +31,12 @@
             <th class="px-4 py-3 w-[50px]">
               <input type="checkbox" />
             </th>
-            <th class="px-4 py-3 w-[80px] text-left">ID</th>
-            <th class="px-4 py-3 w-[200px] text-left">Project Name</th>
-            <th class="px-4 py-3 w-[150px] text-left">Language</th>
-            <th class="px-4 py-3 w-[120px] text-left">Status</th>
-            <th class="px-4 py-3 w-[150px] text-left">Tags</th>
-            <th class="px-4 py-3 w-[200px] text-left">Action</th>
+            <th class="px-4 py-3 text-left">Project Name</th>
+            <th class="px-4 py-3 text-left">Language</th>
+            <th class="px-4 py-3 text-left">Type</th>
+            <th class="px-4 py-3 text-left">Description</th>
+            <th class="px-4 py-3 text-left">Image</th>
+            <th class="px-4 py-3 text-left">Action</th>
           </tr>
         </thead>
 
@@ -41,55 +44,56 @@
           <tr
             v-for="project in projects"
             :key="project.id"
-            class="border-b hover:bg-gray-50 items-center"
+            class="border-b hover:bg-gray-50"
           >
             <td class="px-4 py-3">
               <input type="checkbox" />
             </td>
 
-            <td class="px-4 py-3">{{ project.id }}</td>
-
-            <td class="px-4 py-3 font-medium">
-              {{ project.name }}
-            </td>
-
-            <td class="px-4 py-3">
-              {{ project.language }}
-            </td>
+            <td class="px-4 py-3 font-medium">{{ project.project_name }}</td>
+            <td class="px-4 py-3">{{ project.language }}</td>
 
             <td class="px-4 py-3">
               <span
-                :class="
-                  project.status === 'Active'
-                    ? 'text-green-600'
-                    : 'text-red-500'
-                "
+                class="px-2 py-1 rounded text-xs"
+                :class="{
+                  'bg-blue-100 text-blue-600':
+                    project.project_type === 'Frontend',
+                  'bg-green-100 text-green-600':
+                    project.project_type === 'Backend',
+                  'bg-purple-100 text-purple-600':
+                    project.project_type === 'Fullstack',
+                  'bg-pink-100 text-pink-600': project.project_type === 'UI/UX',
+                }"
               >
-                {{ project.status }}
+                {{ project.project_type || "N/A" }}
               </span>
             </td>
 
+            <td class="px-4 py-3 truncate max-w-[200px]">
+              {{ project.description }}
+            </td>
+
             <td class="px-4 py-3">
-              <div class="flex flex-wrap gap-1">
-                <span
-                  v-for="tag in project.tags"
-                  :key="tag"
-                  class="text-xs bg-pink-100 text-pink-500 px-2 py-1 rounded-full"
-                >
-                  {{ tag }}
-                </span>
-              </div>
+              <img
+                v-if="project.image"
+                :src="getImageUrl(project.image)"
+                class="w-16 h-16 object-cover rounded"
+              />
+              <span v-else class="text-gray-400 text-sm">No image</span>
             </td>
 
             <td class="px-4 py-3">
               <div class="flex gap-2">
                 <button
-                  class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  @click="handleEdit(project)"
+                  class="px-3 py-1 bg-blue-500 text-white rounded"
                 >
                   Edit
                 </button>
                 <button
-                  class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                  @click="handleDelete(project)"
+                  class="px-3 py-1 bg-red-500 text-white rounded"
                 >
                   Delete
                 </button>
@@ -99,31 +103,44 @@
         </tbody>
       </table>
     </div>
+
+    <div
+      v-if="showForm"
+      class="fixed inset-0 bg-black/50 flex items-center justify-center"
+    >
+      <ProjectsForm :project="selectedProject" @close="closeForm" />
+    </div>
   </div>
 </template>
 
-<script setup>
-const projects = [
-  {
-    id: 1,
-    name: "E-commerce Website",
-    language: "Vue + Laravel",
-    status: "Active",
-    tags: ["Vue", "Laravel"],
-  },
-  {
-    id: 2,
-    name: "Portfolio Website",
-    language: "Vue + Tailwind",
-    status: "Active",
-    tags: ["Vue", "UI"],
-  },
-  {
-    id: 3,
-    name: "Task App",
-    language: "React + Node",
-    status: "Inactive",
-    tags: ["React", "Node"],
-  },
-];
+<script setup lang="ts">
+import { ref } from "vue";
+import { getProject } from "@/composables/Project";
+import { getImageUrl } from "@/helpers/image.helper";
+
+const showForm = ref(false);
+
+const { projects } = getProject();
+
+const selectedProject = ref(null);
+
+const openForm = () => {
+  showForm.value = true;
+};
+
+const closeForm = () => {
+  showForm.value = false;
+};
+
+const handleEdit = (project) => {
+  selectedProject.value = project;
+  showForm.value = true;
+};
+
+const handleDelete = (project) => {
+  if (confirm("Are you sure you want to delete this project?")) {
+    projects.value = projects.value.filter((p) => p.id !== project.id);
+    closeForm();
+  }
+};
 </script>
