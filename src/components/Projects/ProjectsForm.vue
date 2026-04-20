@@ -44,7 +44,7 @@
         </select>
       </div>
 
-      <button type="submit" class="btn">
+      <button cl type="submit" class="btn bg-[#0f375a]">
         {{ props.project ? "Update" : "Create"}}
       </button>
     </form>
