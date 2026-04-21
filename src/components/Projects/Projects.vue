@@ -114,40 +114,41 @@
           </tbody>
         </table>
         <div class="flex gap-2 mt-4 justify-center">
-  <button
-    class="px-3 py-1 border rounded"
-    :disabled="pagination.current_page === 1"
-    @click="fetchProjects(pagination.current_page - 1)"
-  >
-    Prev
-  </button>
+          <button
+            class="px-3 py-1 border rounded"
+            :disabled="pagination.current_page === 1"
+            @click="fetchProjects(pagination.current_page - 1)"
+          >
+            Prev
+          </button>
 
-  <button
-    v-for="page in pagination.last_page"
-    :key="page"
-    @click="fetchProjects(page)"
-    :class="[
-      'px-3 py-1 border rounded',
-      page === pagination.current_page ? 'bg-[#0f375a] text-white' : ''
-    ]"
-  >
-    {{ page }}
-  </button>
+          <button
+            v-for="page in pagination.last_page"
+            :key="page"
+            @click="fetchProjects(page)"
+            :class="[
+              'px-3 py-1 border rounded',
+              page === pagination.current_page ? 'bg-[#0f375a] text-white' : '',
+            ]"
+          >
+            {{ page }}
+          </button>
 
-  <button
-    class="px-3 py-1 border rounded"
-    :disabled="pagination.current_page === pagination.last_page"
-    @click="fetchProjects(pagination.current_page + 1)"
-  >
-    Next
-  </button>
-</div>
+          <button
+            class="px-3 py-1 border rounded"
+            :disabled="pagination.current_page === pagination.last_page"
+            @click="fetchProjects(pagination.current_page + 1)"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
 
     <div
       v-if="showForm"
-      class="fixed inset-0 bg-black/50 flex items-center justify-center"
+      class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+      @click.self="closeForm"
     >
       <ProjectsForm
         :project="selectedProject"
