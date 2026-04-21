@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import Projects from "@/components/Projects/Projects.vue";
-
+import MainLayout from "@/layouts/MainLayout.vue";
 </script>
 
 <template>
-  <div>
-    <Projects />
-  </div>
+  <MainLayout>
+    <div>
+      <Projects />
+    </div>
+  </MainLayout>
 </template>

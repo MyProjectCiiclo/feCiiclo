@@ -1,12 +1,5 @@
-<script setup>
-import HomeAboutSection from "./sections/AboutSection.vue";
-import IntroSection from "./sections/IntroSection.vue";
-import HomeProjectSection from "./sections/ProjectSection.vue";
-import HomeContactSection from "./sections/ContactSection.vue";
-</script>
-
 <template>
-  <header
+     <header
     class="flex justify-between items-center px-[180px] py-4 bg-[#0f375a] shadow-sm sticky top-0 z-50"
   >
     <div>
@@ -43,8 +36,4 @@ import HomeContactSection from "./sections/ContactSection.vue";
       </ul>
     </nav>
   </header>
-  <IntroSection />
-  <HomeAboutSection />
-  <HomeProjectSection />
-  <HomeContactSection />
 </template>
