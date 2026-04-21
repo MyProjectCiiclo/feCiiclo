@@ -1,12 +1,13 @@
 <template>
   <div class="min-h-screen flex items-center justify-center">
     <div
-      class="flex flex-col items-center p-6 rounded-xl shadow-xl bg-[#FF85BB]"
+      class="flex flex-col items-center p-6 rounded-xl shadow-xl bg-[#0f375a]"
     >
       <h1 class="text-xl font-bold mb-4 text-white">Register Account</h1>
 
       <div class="mb-4 w-80">
         <input
+          v-model="name"
           class="w-full outline-none p-2 rounded-xl"
           type="text"
           placeholder="Enter name"
@@ -15,14 +16,17 @@
 
       <div class="mb-4 w-80">
         <input
+          v-model="email"
           class="w-full outline-none p-2 rounded-xl"
           type="text"
           placeholder="Enter email"
         />
       </div>
 
+
       <div class="mb-4 w-80">
         <input
+          v-model="password"
           class="w-full outline-none p-2 rounded-xl"
           type="password"
           placeholder="Enter password"
@@ -31,12 +35,14 @@
 
       <div class="mb-4 w-80">
         <input
+          v-model="confirmPassword"
           class="w-full outline-none p-2 rounded-xl"
           type="password"
           placeholder="Enter confirm password"
         />
       </div>
-      <p class="text-sm text-gray-600 mt-4 mb-4">
+
+      <p class="text-sm text-white mt-2 mb-4">
         Already have an account?
         <router-link
           to="/login"
@@ -45,11 +51,44 @@
           Login
         </router-link>
       </p>
-      <div>
-        <button class="bg-[#FFCEE3] py-2 px-4 rounded-xl text-white">
-          Submit
-        </button>
-      </div>
+
+      <button
+        @click="handleSubmit"
+        class="bg-[#FF4D8D] py-2 px-4 rounded-xl text-white"
+      >
+        Submit
+      </button>
     </div>
   </div>
 </template>
+
+<script setup>
+import router from "@/router";
+import { registerApi } from "../../services/user.service.ts";
+import { ref } from "vue";
+
+const name = ref("");
+const email = ref("");
+const password = ref("");
+const confirmPassword = ref("");
+
+const handleSubmit = async () => {
+  if (password.value != confirmPassword.value) {
+    alert("Password not match");
+    return;
+  }
+
+  try {
+    const user = await registerApi({
+      name: name.value,
+      email: email.value,
+      password: password.value,
+      password_confirmation: confirmPassword.value,
+    });
+    alert("Register successfully");
+    router.push("/login")
+  } catch (error) {
+    alert("Something went wrong");
+  }
+};
+</script>

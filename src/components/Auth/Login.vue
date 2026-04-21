@@ -1,12 +1,13 @@
 <template>
   <div class="min-h-screen flex items-center justify-center">
     <div
-      class="flex flex-col items-center p-6 rounded-xl shadow-xl bg-[#FF85BB]"
+      class="flex flex-col items-center p-6 rounded-xl shadow-xl bg-[#0f375a]"
     >
       <h1 class="text-xl font-bold mb-4 text-white">Login Account</h1>
 
       <div class="mb-4 w-80">
         <input
+          v-model="email"
           class="w-full outline-none p-2 rounded-xl"
           type="text"
           placeholder="Enter email"
@@ -15,12 +16,13 @@
 
       <div class="mb-4 w-80">
         <input
+          v-model="password"
           class="w-full outline-none p-2 rounded-xl"
           type="password"
           placeholder="Enter password"
         />
       </div>
-      <p class="text-sm text-gray-600 mt-4 mb-4">
+      <p class="text-sm text-white mt-4 mb-4">
         You don’t have an account?
         <router-link
           to="/register"
@@ -30,10 +32,49 @@
         </router-link>
       </p>
       <div>
-        <button class="bg-[#FFCEE3] py-2 px-4 rounded-xl text-white">
+        <button
+          @click="handleSubmit"
+          class="bg-[#FF4D8D] py-2 px-4 rounded-xl text-white"
+        >
           Submit
         </button>
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from "vue";
+import { loginApi } from "@/services/user.service";
+import router from "@/router";
+
+const email = ref("");
+const password = ref("");
+
+const handleSubmit = async () => {
+  if (!email.value || !password.value) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  try {
+    const user = await loginApi({
+      email: email.value,
+      password: password.value,
+    });
+
+    console.log(user);
+
+    alert("Login successfully");
+
+    if (user.token) {
+      localStorage.setItem("token", user.token);
+    }
+
+    router.push("/home");
+  } catch (error) {
+    console.log(error);
+    alert("Login failed");
+  }
+};
+</script>
