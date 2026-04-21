@@ -161,8 +161,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import ProjectsForm from "./ProjectsForm.vue";
-import { getProjects, deleteProject } from "@/services/project.service";
-import { getImageUrl } from "@/helpers/image.helper";
+import { getProjects, deleteProject } from "../../services/project.service";
+import { getImageUrl } from "../../helpers/image.helper";
 
 const projects = ref<any[]>([]);
 const showForm = ref(false);
