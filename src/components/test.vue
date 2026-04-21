@@ -1,24 +1,36 @@
 <template>
   <div>
-    <button @click="increase">Click me! {{ count }}</button>
+    <button @click="increase">
+      Click me! {{ count.nested2.count }}
+    </button>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { shallowRef } from "vue";
 
 export default {
   setup() {
-    const count = ref(0);
+    const count = shallowRef({
+      nested: { count: 0 },
+      nested2: { count: 0 },
+    });
 
-    const increase = () => {
-      count.value++;
-    };
+   function increase() {
+  count.value = {
+    ...count.value,
+    nested: {
+      ...count.value.nested,
+      count: count.value.nested.count + 1,
+    },
+    nested2: {
+      ...count.value.nested2,
+      count: count.value.nested2.count + 1,
+    }
+  }
+}
 
-    return {
-      count,
-      increase,
-    };
+    return { count, increase };
   },
 };
 </script>
