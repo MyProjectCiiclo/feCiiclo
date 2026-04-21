@@ -154,7 +154,7 @@
 </style>
 
 <script setup lang="ts">
-import { createProject, updateProject } from "@/services/project.service";
+import { createProject, updateProject } from "../../services/project.service";
 import { reactive, watch } from "vue";
 const emit = defineEmits(["close"]);
 
