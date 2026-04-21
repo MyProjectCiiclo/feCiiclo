@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex items-center justify-center">
     <div
-      class="flex flex-col items-center p-6 rounded-xl shadow-xl bg-[#FF85BB]"
+      class="flex flex-col items-center p-6 rounded-xl shadow-xl bg-[#0f375a]"
     >
       <h1 class="text-xl font-bold mb-4 text-white">Login Account</h1>
 
@@ -22,7 +22,7 @@
           placeholder="Enter password"
         />
       </div>
-      <p class="text-sm text-gray-600 mt-4 mb-4">
+      <p class="text-sm text-white mt-4 mb-4">
         You don’t have an account?
         <router-link
           to="/register"
@@ -34,7 +34,7 @@
       <div>
         <button
           @click="handleSubmit"
-          class="bg-[#FFCEE3] py-2 px-4 rounded-xl text-white"
+          class="bg-[#FF4D8D] py-2 px-4 rounded-xl text-white"
         >
           Submit
         </button>
@@ -43,34 +43,38 @@
   </div>
 </template>
 
-<script>
-import http from "@/api/http";
+<script setup>
 import { ref } from "vue";
+import { loginApi } from "@/services/user.service";
+import router from "@/router";
 
-export default {
-  setup() {
-    const email = ref("");
-    const password = ref("");
+const email = ref("");
+const password = ref("");
 
-    const handleSubmit = async () => {
-      if (!email.value || !password.value) {
-        alert("Please fill all fields");
-        return;
-      }
+const handleSubmit = async () => {
+  if (!email.value || !password.value) {
+    alert("Please fill all fields");
+    return;
+  }
 
-      try {
-        const res = await http.post("auth/login", {
-          email: email.value,
-          password: password.value,
-        });
+  try {
+    const user = await loginApi({
+      email: email.value,
+      password: password.value,
+    });
 
-        console.log("LOGIN SUCCESS:", res.data);
-      } catch (error) {
-        console.log("LOGIN ERROR:", error.response?.data || error.message);
-      }
-    };
+    console.log(user);
 
-    return { handleSubmit, email, password };
-  },
+    alert("Login successfully");
+
+    if (user.token) {
+      localStorage.setItem("token", user.token);
+    }
+
+    router.push("/home");
+  } catch (error) {
+    console.log(error);
+    alert("Login failed");
+  }
 };
 </script>

@@ -1,11 +1,10 @@
 <template>
   <div class="min-h-screen flex items-center justify-center">
     <div
-      class="flex flex-col items-center p-6 rounded-xl shadow-xl bg-[#FF85BB]"
+      class="flex flex-col items-center p-6 rounded-xl shadow-xl bg-[#0f375a]"
     >
       <h1 class="text-xl font-bold mb-4 text-white">Register Account</h1>
 
-      <!-- NAME -->
       <div class="mb-4 w-80">
         <input
           v-model="name"
@@ -15,7 +14,6 @@
         />
       </div>
 
-      <!-- EMAIL -->
       <div class="mb-4 w-80">
         <input
           v-model="email"
@@ -25,7 +23,7 @@
         />
       </div>
 
-      <!-- PASSWORD -->
+
       <div class="mb-4 w-80">
         <input
           v-model="password"
@@ -35,7 +33,6 @@
         />
       </div>
 
-      <!-- CONFIRM PASSWORD -->
       <div class="mb-4 w-80">
         <input
           v-model="confirmPassword"
@@ -45,8 +42,7 @@
         />
       </div>
 
-      <!-- LINK LOGIN -->
-      <p class="text-sm text-gray-600 mt-2 mb-4">
+      <p class="text-sm text-white mt-2 mb-4">
         Already have an account?
         <router-link
           to="/login"
@@ -56,10 +52,9 @@
         </router-link>
       </p>
 
-      <!-- BUTTON -->
       <button
         @click="handleSubmit"
-        class="bg-[#FFCEE3] py-2 px-4 rounded-xl text-white"
+        class="bg-[#FF4D8D] py-2 px-4 rounded-xl text-white"
       >
         Submit
       </button>
@@ -68,8 +63,9 @@
 </template>
 
 <script setup>
+import router from "@/router";
+import { registerApi } from "../../services/user.service.ts";
 import { ref } from "vue";
-import http from "@/api/http";
 
 const name = ref("");
 const email = ref("");
@@ -77,25 +73,22 @@ const password = ref("");
 const confirmPassword = ref("");
 
 const handleSubmit = async () => {
-  try {
-    // check password
-    if (password.value !== confirmPassword.value) {
-      alert("Password không khớp!");
-      return;
-    }
+  if (password.value != confirmPassword.value) {
+    alert("Password not match");
+    return;
+  }
 
-    const res = await http.post("/auth/register", {
+  try {
+    const user = await registerApi({
       name: name.value,
       email: email.value,
       password: password.value,
       password_confirmation: confirmPassword.value,
     });
-
-    console.log("SUCCESS:", res.data);
-
-    alert("Register success!");
+    alert("Register successfully");
+    router.push("/login")
   } catch (error) {
-    console.log("ERROR:", error.response?.data || error.message);
+    alert("Something went wrong");
   }
 };
 </script>
