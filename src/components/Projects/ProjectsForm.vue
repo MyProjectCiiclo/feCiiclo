@@ -45,7 +45,7 @@
       </div>
 
       <button cl type="submit" class="btn bg-[#0f375a]">
-        {{ props.project ? "Update" : "Create"}}
+        {{ props.project ? "Update" : "Create" }}
       </button>
     </form>
   </div>
@@ -156,7 +156,8 @@
 <script setup lang="ts">
 import { createProject, updateProject } from "../../services/project.service";
 import { reactive, watch } from "vue";
-const emit = defineEmits(["close"]);
+
+const emit = defineEmits(["close", "success"]);
 
 const form = reactive({
   project_name: "",
@@ -189,8 +190,9 @@ watch(
       form.image = null;
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
+
 const handleSubmit = async () => {
   try {
     const data = new FormData();
@@ -205,20 +207,19 @@ const handleSubmit = async () => {
 
     if (props.project) {
       await updateProject(props.project.id, data);
-      console.log("Update Success");
     } else {
       await createProject(data);
-      console.log("Create Success");
     }
 
+    emit("success");
     emit("close");
   } catch (error) {
     console.log(error);
   }
 };
+
 const onFileChange = (e: Event) => {
   const target = e.target as HTMLInputElement;
-
   if (target.files && target.files[0]) {
     form.image = target.files[0];
   }
