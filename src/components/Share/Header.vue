@@ -1,5 +1,5 @@
 <template>
-     <header
+  <header
     class="flex justify-between items-center px-[180px] py-4 bg-[#0f375a] shadow-sm sticky top-0 z-50"
   >
     <div>
@@ -17,22 +17,10 @@
         </li>
 
         <li class="cursor-pointer hover:text-orange-400 transition">About</li>
-        <li class="cursor-pointer hover:text-orange-400 transition">
-          Experience
-        </li>
-        <li class="cursor-pointer hover:text-orange-400 transition">Skills</li>
-        <li class="cursor-pointer hover:text-orange-400 transition">
-          Education
-        </li>
-        <li class="cursor-pointer hover:text-orange-400 transition">Contact</li>
 
-        <li>
-          <button
-            class="ml-4 px-4 py-2 border border-orange-400 text-orange-400 rounded-lg hover:bg-orange-400 hover:text-white transition"
-          >
-            Resume
-          </button>
-        </li>
+        <li class="cursor-pointer hover:text-orange-400 transition">Skills</li>
+
+        <li class="cursor-pointer hover:text-orange-400 transition">Contact</li>
       </ul>
     </nav>
   </header>

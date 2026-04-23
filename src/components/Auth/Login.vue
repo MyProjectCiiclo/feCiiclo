@@ -47,13 +47,13 @@
 import { ref } from "vue";
 import { loginApi } from "@/services/user.service";
 import router from "@/router";
-
+import { toast } from 'vue3-toastify'
 const email = ref("");
 const password = ref("");
 
 const handleSubmit = async () => {
   if (!email.value || !password.value) {
-    alert("Please fill all fields");
+    toast.error("Please fill all fields");
     return;
   }
 
@@ -63,9 +63,7 @@ const handleSubmit = async () => {
       password: password.value,
     });
 
-    console.log(user);
-
-    alert("Login successfully");
+    toast.success("Login successfully");
 
     if (user.token) {
       localStorage.setItem("token", user.token);
@@ -73,8 +71,7 @@ const handleSubmit = async () => {
 
     router.push("/home");
   } catch (error) {
-    console.log(error);
-    alert("Login failed");
+    toast.error("Login failed");
   }
 };
 </script>

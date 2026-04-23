@@ -66,6 +66,7 @@
 import router from "@/router";
 import { registerApi } from "../../services/user.service.ts";
 import { ref } from "vue";
+import { toast } from 'vue3-toastify'
 
 const name = ref("");
 const email = ref("");
@@ -74,7 +75,7 @@ const confirmPassword = ref("");
 
 const handleSubmit = async () => {
   if (password.value != confirmPassword.value) {
-    alert("Password not match");
+    toast.error("Password not match");
     return;
   }
 
@@ -85,10 +86,10 @@ const handleSubmit = async () => {
       password: password.value,
       password_confirmation: confirmPassword.value,
     });
-    alert("Register successfully");
+    toast.success("Register successfully");
     router.push("/login")
   } catch (error) {
-    alert("Something went wrong");
+    toast.error("Something went wrong");
   }
 };
 </script>
