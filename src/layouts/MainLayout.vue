@@ -1,18 +1,17 @@
 <template>
   <div class="layout">
-    <Header/>
+    <AppHeader />
 
     <main class="content">
       <slot />
     </main>
 
-   <Footer/>
+    <AppFooter />
   </div>
 </template>
 
 <script setup>
-import Footer from "@/components/Share/Footer.vue";
-import Header from "@/components/Share/Header.vue";
+import App from "@/App.vue";
 </script>
 
 <style scoped>
