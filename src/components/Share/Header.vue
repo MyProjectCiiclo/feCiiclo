@@ -1,6 +1,6 @@
 <template>
   <header
-    class="flex justify-between items-center px-[180px] py-4 bg-[#0f375a] shadow-sm sticky top-0 z-50"
+    class="flex justify-between items-center px-[180px] py-4 bg-[#0f375a] shadow-sm sticky top-0 z-50 border-b border-gray-200"
   >
     <div>
       <img
@@ -15,12 +15,15 @@
         <li class="cursor-pointer hover:text-orange-400 transition">
           <router-link to="/project">Project</router-link>
         </li>
-
-        <li class="cursor-pointer hover:text-orange-400 transition">About</li>
+        <li class="cursor-pointer hover:text-orange-400 transition">
+          <router-link to="/about">About</router-link>
+        </li>
 
         <li class="cursor-pointer hover:text-orange-400 transition">Skills</li>
 
-        <li class="cursor-pointer hover:text-orange-400 transition">Contact</li>
+        <li class="cursor-pointer hover:text-orange-400 transition">
+          <router-link to="/contact">Contact</router-link>
+        </li>
       </ul>
     </nav>
   </header>

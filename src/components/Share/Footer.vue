@@ -5,7 +5,7 @@
         <div>
           <h3>Portfolio</h3>
           <p>
-            Tạo những sản phẩm tuyệt vời và giải quyết vấn đề thông qua công nghệ.
+            Tạo những sản phẩm chất lượng và giải quyết vấn đề bằng công nghệ.
           </p>
         </div>
 
@@ -31,21 +31,19 @@
         <div>
           <h3>Kết nối</h3>
           <div class="socials">
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fas fa-envelope"></i></a>
+            <a href="#">GitHub</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Email</a>
           </div>
         </div>
       </div>
 
-      <hr />
-
       <div class="footer-bottom">
-        <p>© 2026 Portfolio. Tất cả các quyền được bảo lưu.</p>
+        <p>© 2026 Portfolio. All rights reserved.</p>
+
         <div class="links">
-          <a href="#">Chính sách bảo mật</a>
-          <a href="#">Điều khoản dịch vụ</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
         </div>
       </div>
     </div>
@@ -54,99 +52,101 @@
 
 <style scoped>
 .footer {
-  border-top: 1px solid #fff;
   background: #0f375a;
   color: #cbd5e1;
-  padding: 50px 20px 20px;
-  font-family: Arial, sans-serif;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 60px 20px 25px;
 }
 
 .container {
-  max-width: 1100px;
-  margin: auto;
+  max-width: 1150px;
+  margin: 0 auto;
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
   gap: 40px;
+  padding-bottom: 35px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 h3 {
-  color: #fff;
-  margin-bottom: 15px;
+  color: #ffffff;
+  font-size: 18px;
+  margin-bottom: 18px;
 }
 
 p {
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.7;
+  color: #cbd5e1;
 }
 
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 ul li {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 a {
-  color: #fff;
+  color: #cbd5e1;
   text-decoration: none;
+  transition: 0.2s;
 }
 
 a:hover {
-  color: #fff;
+  color: #ffffff;
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .socials a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-  background: #0f172a;
-  padding: 10px;
+  background: #111827;
+  padding: 8px 14px;
   border-radius: 8px;
-  color: #fff;
-  font-size: 18px;
-  transition: 0.3s;
-}
-
-.socials a i {
-  color: #fff !important;
+  font-size: 14px;
 }
 
 .socials a:hover {
-  background: #1e293b;
-  transform: translateY(-2px);
-}
-
-hr {
-  border: none;
-  border-top: 1px solid #1e293b;
-  margin: 30px 0;
+  background: #1f2937;
 }
 
 .footer-bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 14px;
+  padding-top: 22px;
+  font-size: 13px;
 }
 
-.footer-bottom .links a {
-  margin-left: 20px;
+.links {
+  display: flex;
+  gap: 18px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .footer-grid {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
   }
 
   .footer-bottom {
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     text-align: center;
   }
 }

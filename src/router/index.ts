@@ -3,6 +3,8 @@ import HomePage from "@/views/HomePage.vue";
 import Project from "@/views/Project.vue";
 import Register from "@/components/Auth/Register.vue";
 import Login from "@/components/Auth/Login.vue";
+import About from "@/views/About.vue";
+import Contact from "@/views/Contact.vue";
 
 const routes = [
   {
@@ -24,6 +26,10 @@ const routes = [
   {
     path: "/home",
     component: HomePage,
+  },
+  {
+    path: "/about",
+    component: About,
   },
 ];
 
