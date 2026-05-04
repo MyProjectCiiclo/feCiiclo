@@ -2,11 +2,15 @@ import api from "@/services/api";
 import type { Project } from "@/types/Project";
 
 export const getProjects = async (page = 1) => {
+  const token = localStorage.getItem("accessToken");
+
+  if (!token) {
+    console.warn("No token → skip request");
+    return;
+  }
+
   const res = await api.get("/project/show-project", {
-    params: {
-      page,
-      per_page: 10,
-    },
+    params: { page, per_page: 10 },
   });
 
   return res.data;

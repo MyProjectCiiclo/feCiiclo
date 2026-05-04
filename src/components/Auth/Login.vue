@@ -47,7 +47,7 @@
 import { ref } from "vue";
 import { loginApi } from "@/services/user.service";
 import router from "@/router";
-import { toast } from 'vue3-toastify'
+import { toast } from "vue3-toastify";
 const email = ref("");
 const password = ref("");
 
@@ -64,11 +64,6 @@ const handleSubmit = async () => {
     });
 
     toast.success("Login successfully");
-
-    if (user.token) {
-      localStorage.setItem("token", user.token);
-    }
-
     router.push("/home");
   } catch (error) {
     toast.error("Login failed");

@@ -8,6 +8,9 @@ export const registerApi = async (data: User) => {
 
 export const loginApi = async (data: User) => {
   const res = await api.post("/auth/login", data);
-  localStorage.setItem("token", res.data.token);
+  localStorage.setItem("accessToken", res.data.access_token);
+
+  console.log("LOGIN RESPONSE:", res.data);
+
   return res.data;
 };
